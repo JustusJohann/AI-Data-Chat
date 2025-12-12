@@ -100,9 +100,6 @@ Set up the Python environment in the **root** of the project.
     pip install -r backend/requirements.txt
     ```
 
-    pip install -r backend/requirements.txt
-    ```
-
 4.  **Install Root Node Dependencies (for MCP)**:
     Required for the PostreSQL Context Server.
     ```bash
