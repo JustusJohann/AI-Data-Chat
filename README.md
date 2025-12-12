@@ -37,64 +37,135 @@ For a deep dive into the architecture, check out [summary.md](./summary.md).
 
 ## Getting Started
 
+Follow these instructions to set up the project on your local machine.
+
 ### Prerequisites
-- Python 3.10+
-- Node.js 18+
-- PostgreSQL Database
 
-### 1. Backend Setup
+Ensure you have the following installed:
 
-Navigate to the backend directory:
+1.  **Git**: [Download Git](https://git-scm.com/downloads)
+2.  **PostgreSQL**: Ensure your database is running and accessible.
+
+#### Installing Node.js (via nvm)
+We recommend using `nvm` (Node Version Manager) to install Node.js.
+
+1.  **Install nvm**:
+    ```bash
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+    ```
+    *Restart your terminal after installation.*
+
+2.  **Install Node.js 18+**:
+    ```bash
+    nvm install 18
+    nvm use 18
+    ```
+
+#### Installing Python 3.10+
+You need Python 3.10 or higher.
+- **macOS (via Homebrew)**: `brew install python`
+- **Windows**: [Download from Python.org](https://www.python.org/downloads/)
+- **Linux**: `sudo apt install python3 python3-venv`
+
+---
+
+### Installation
+
+#### 1. Clone the Repository
 ```bash
-cd backend
+git clone <repository_url>
+cd <repository_name>
 ```
 
-Create a virtual environment:
+#### 2. Backend Setup
+Set up the Python environment in the **root** of the project.
+
+1.  **Create a Virtual Environment**:
+    ```bash
+    python -m venv .venv
+    ```
+
+2.  **Activate the Environment**:
+    - macOS/Linux:
+      ```bash
+      source .venv/bin/activate
+      ```
+    - Windows:
+      ```bash
+      .venv\Scripts\activate
+      ```
+
+3.  **Install Dependencies**:
+    ```bash
+    pip install -r backend/requirements.txt
+    ```
+
+4.  **Environment Configuration**:
+    Create a `.env` file in the **root** directory (same level as `start_app.sh`).
+    
+    ```bash
+    touch .env
+    ```
+
+    Add the following content to `.env` (adjust values as needed):
+    ```env
+    # Database Connection String
+    DATABASE_URL=postgresql://user:password@localhost:5432/your_database_name
+
+    # LLM API Keys
+    GROQ_API_KEY=your_groq_api_key_here
+    # Optional: OPENAI_API_KEY=your_openai_key_here
+    ```
+
+#### 3. Frontend Setup
+
+1.  **Navigate to Frontend**:
+    ```bash
+    cd frontend
+    ```
+
+2.  **Install Dependencies**:
+    ```bash
+    npm install
+    ```
+
+3.  **Return to Root**:
+    ```bash
+    cd ..
+    ```
+
+---
+
+### Running the Application
+
+You can start the application using the helper script or manually.
+
+#### Option A: Quick Start (Recommended)
+We have provided a script that starts both the backend and frontend in parallel.
+
+Make sure you are in the project root and run:
 ```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+./start_app.sh
 ```
+- **Frontend**: http://localhost:3000
+- **Backend**: http://localhost:8000
 
-Install dependencies:
+#### Option B: Manual Start
+
+**1. Start Backend**
+Open a terminal in the project root:
 ```bash
-pip install -r requirements.txt
+source .venv/bin/activate
+python -m uvicorn backend.app.main:app --reload --port 8000
 ```
+*Wait for the message "Application startup complete".*
 
-Create a `.env` file in the `backend` directory:
-```bash
-# backend/.env
-DATABASE_URL=postgresql://user:password@localhost:5432/your_db
-GROQ_API_KEY=your_groq_api_key
-# Optional: OPENAI_API_KEY if using OpenAI models
-```
-
-Start the server:
-```bash
-# Using the CLI wrapper
-python cli_agent.py
-
-# OR running the API directly
-uvicorn app.main:app --reload
-```
-The backend API will run on `http://localhost:8000`.
-
-### 2. Frontend Setup
-
-Navigate to the frontend directory:
+**2. Start Frontend**
+Open a **new** terminal window:
 ```bash
 cd frontend
-```
-
-Install dependencies:
-```bash
-npm install
-```
-
-Start the development server:
-```bash
 npm run dev
 ```
-The application will be available at `http://localhost:3000`.
 
 ## How it Works
 
