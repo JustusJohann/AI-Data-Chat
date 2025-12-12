@@ -100,7 +100,16 @@ Set up the Python environment in the **root** of the project.
     pip install -r backend/requirements.txt
     ```
 
-4.  **Environment Configuration**:
+    pip install -r backend/requirements.txt
+    ```
+
+4.  **Install Root Node Dependencies (for MCP)**:
+    Required for the PostreSQL Context Server.
+    ```bash
+    npm install
+    ```
+
+5.  **Environment Configuration**:
     Create a `.env` file in the **root** directory (same level as `start_app.sh`).
     
     ```bash

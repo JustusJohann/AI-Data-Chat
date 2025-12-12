@@ -18,6 +18,20 @@ if [ ! -d "backend" ] || [ ! -d "frontend" ]; then
     exit 1
 fi
 
+# Check and install Root dependencies (for MCP Client)
+if [ ! -d "node_modules" ]; then
+    echo "Root node_modules not found. Installing dependencies..."
+    npm install
+fi
+
+# Check and install Frontend dependencies
+if [ ! -d "frontend/node_modules" ]; then
+    echo "Frontend node_modules not found. Installing dependencies..."
+    cd frontend
+    npm install
+    cd ..
+fi
+
 # Activate virtual environment
 if [ -d ".venv" ]; then
     echo "Activating virtual environment..."
